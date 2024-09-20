@@ -5,13 +5,14 @@ class MyTextField extends StatelessWidget {
   final TextInputType inputType;
   final IconData icon;
   final String label;
+  final TextEditingController controller;
 
   const MyTextField({
     super.key,
     required this.label,
     required this.obscureText,
     required this.inputType,
-    required this.icon,
+    required this.icon, required this.controller,
   });
 
   @override
@@ -23,6 +24,7 @@ class MyTextField extends StatelessWidget {
       autofocus: false,
       keyboardType: inputType,
       textAlignVertical: TextAlignVertical.center,
+      controller: controller,
       decoration: InputDecoration(
         labelText: label,
         fillColor: Colors.blueGrey.shade100,

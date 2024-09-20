@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:todo_supabase/layouts/signup.dart';
 import 'package:todo_supabase/widgets/textfields.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding:const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -33,19 +41,21 @@ class LoginPage extends StatelessWidget {
                     Icon(Icons.person, size: 50, color: Colors.blue[500]),
                     const SizedBox(height: 10),
                     // Username input field
-                    const MyTextField(
+                    MyTextField(
                       label: "Email",
                       obscureText: false,
                       inputType: TextInputType.emailAddress,
                       icon: Icons.alternate_email,
+                      controller: emailController,
                     ),
                     const SizedBox(height: 10),
                     // Password input field
-                    const MyTextField(
+                    MyTextField(
                       label: "Password",
                       obscureText: true,
                       inputType: TextInputType.text,
                       icon: Icons.password,
+                      controller: passwordController,
                     ),
 
                     // Login button
@@ -78,7 +88,8 @@ class LoginPage extends StatelessWidget {
                         // Forgot password logic goes here
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) =>const SignUpPage()),
+                          MaterialPageRoute(
+                              builder: (context) => const SignUpPage()),
                         );
                       },
                       child: const Text('Already have account? Sign up here'),

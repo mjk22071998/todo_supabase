@@ -1,8 +1,23 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:todo_supabase/models/users.dart';
 import 'package:todo_supabase/widgets/textfields.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  SupabaseClient supabase = Supabase.instance.client;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController cpasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,46 +53,61 @@ class SignUpPage extends StatelessWidget {
                     ),
 
                     // Name input field
-                    const MyTextField(
+                    MyTextField(
                       label: "Name",
                       obscureText: false,
                       inputType: TextInputType.name,
                       icon: Icons.person,
+                      controller: nameController,
                     ),
                     const SizedBox(height: 10),
 
                     // Email input field
-                    const MyTextField(
+                    MyTextField(
                       label: "Email",
                       obscureText: false,
                       inputType: TextInputType.emailAddress,
                       icon: Icons.alternate_email,
+                      controller: emailController,
                     ),
                     const SizedBox(height: 10),
 
                     // Password input field
-                    const MyTextField(
+                    MyTextField(
                       label: "Password",
                       obscureText: true,
                       inputType: TextInputType.text,
                       icon: Icons.password,
+                      controller: passwordController,
                     ),
                     const SizedBox(height: 10),
 
                     // Confirm password input field
-                    const MyTextField(
+                    MyTextField(
                       label: "Confirm Password",
                       obscureText: true,
                       inputType: TextInputType.text,
                       icon: Icons.password,
+                      controller: cpasswordController,
                     ),
 
                     // Sign Up button
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () {
-                        // Sign up logic goes here
-                        print('Sign Up button clicked!');
+                      onPressed: () async {
+                        if (validate(context)) {
+                          bool signedup = await signUpUser(
+                              emailController.text.trim(),
+                              passwordController.text.trim());
+                          if (signedup) {
+                            Users user = Users(
+                              name: nameController.text,
+                              email: emailController.text,
+                            );
+                            supabase.from("users").insert(user.toMap());
+                            Navigator.pop(context);
+                          }
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue[500],
@@ -86,7 +116,10 @@ class SignUpPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: const Text('Sign Up'),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text('Sign Up'),
+                      ),
                     ),
                     const SizedBox(
                       height: 10,
@@ -107,5 +140,53 @@ class SignUpPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool validate(BuildContext context) {
+    if (emailController.text.isEmpty ||
+        !EmailValidator.validate(emailController.text)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Enter your email"),
+        ),
+      );
+      return false;
+    } else if (nameController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Enter your name"),
+        ),
+      );
+      return false;
+    } else if (passwordController.text.isEmpty ||
+        passwordController.text.length < 8) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Enter a strong password"),
+        ),
+      );
+      return false;
+    } else if (cpasswordController.text != passwordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Passwords does not match"),
+        ),
+      );
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  Future<bool> signUpUser(String email, String password) async {
+    AuthResponse authResponse =
+        await supabase.auth.signUp(password: password, email: email);
+    if (authResponse.user != null) {
+      Fluttertoast.showToast(msg: "User Signed Up");
+      return true;
+    } else {
+      Fluttertoast.showToast(msg: "User Sign up failed");
+      return false;
+    }
   }
 }
