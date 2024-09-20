@@ -9,7 +9,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(10.0),
+        padding:const EdgeInsets.all(10.0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -81,7 +81,7 @@ class LoginPage extends StatelessWidget {
                           MaterialPageRoute(builder: (context) =>const SignUpPage()),
                         );
                       },
-                      child: const Text('Forgot Password?'),
+                      child: const Text('Already have account? Sign up here'),
                     ),
                   ],
                 ),

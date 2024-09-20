@@ -31,7 +31,7 @@ class MyTextField extends StatelessWidget {
         prefixIcon: Icon(icon),
         prefixIconColor: WidgetStateColor.resolveWith((states) =>
             states.contains(WidgetState.focused)
-                ? Colors.teal
+                ? Colors.blue
                 : Colors.blueGrey.shade400),
       ),
     );

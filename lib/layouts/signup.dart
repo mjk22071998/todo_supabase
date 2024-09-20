@@ -8,6 +8,7 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: const EdgeInsets.all(10.0),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -87,7 +88,9 @@ class SignUpPage extends StatelessWidget {
                       ),
                       child: const Text('Sign Up'),
                     ),
-
+                    const SizedBox(
+                      height: 10,
+                    ),
                     // Already have an account? Log In link
                     TextButton(
                       onPressed: () {
