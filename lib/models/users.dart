@@ -1,18 +1,22 @@
 import 'dart:convert';
 
-class Users {
+class UserModel {
+  String id;
   String name;
   String email;
-  Users({
+  UserModel({
+    required this.id,
     required this.name,
     required this.email,
   });
 
-  Users copyWith({
+  UserModel copyWith({
+    String? id,
     String? name,
     String? email,
   }) {
-    return Users(
+    return UserModel(
+      id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
     );
@@ -20,36 +24,40 @@ class Users {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
-    result.addAll({'name': name});
+
+    result.addAll({'id': id});
     result.addAll({'email': email});
-  
+    result.addAll({'name': name});
+
     return result;
   }
 
-  factory Users.fromMap(Map<String, dynamic> map) {
-    return Users(
-      name: map['name'] ?? '',
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      id: map['id'] ?? '',
       email: map['email'] ?? '',
+      name: map['name'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Users.fromJson(String source) => Users.fromMap(json.decode(source));
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source));
 
   @override
-  String toString() => 'Users(name: $name, email: $email)';
+  String toString() => 'Users(id: $id, name: $name, email: $email)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return other is Users &&
-      other.name == name &&
-      other.email == email;
+
+    return other is UserModel &&
+        other.id == id &&
+        other.name == name &&
+        other.email == email;
   }
 
   @override
-  int get hashCode => name.hashCode ^ email.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode ^ email.hashCode;
 }

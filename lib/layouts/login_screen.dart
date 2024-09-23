@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo_supabase/layouts/signup.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:todo_supabase/layouts/signup_screen.dart';
 import 'package:todo_supabase/widgets/textfields.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,6 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  SupabaseClient supabase = Supabase.instance.client;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -61,7 +64,17 @@ class _LoginPageState extends State<LoginPage> {
                     // Login button
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        AuthResponse response= await supabase.auth.signInWithPassword(
+                          password: passwordController.text.trim(),
+                          email: emailController.text.trim(),
+                        );
+                        if (response.user!=null){
+                          Fluttertoast.showToast(msg: "User logged in");
+                        } else {
+                          Fluttertoast.showToast(msg: "User failed to log in");
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue[500],
                         foregroundColor: Colors.white,
@@ -76,7 +89,6 @@ class _LoginPageState extends State<LoginPage> {
                     TextButton(
                       onPressed: () {
                         // Forgot password logic goes here
-                        print('Forgot password link clicked!');
                       },
                       child: const Text('Forgot Password?'),
                     ),
