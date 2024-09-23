@@ -25,7 +25,6 @@ class _SignUpPageState extends State<SignUpPage> {
     return ChangeNotifierProvider<SignUpViewModel>(
       create: (_) => SignUpViewModel(),
       child: Consumer<SignUpViewModel>(
-
         builder:(context, provider, child)=> Scaffold(
           body: Container(
             padding: const EdgeInsets.all(10.0),
