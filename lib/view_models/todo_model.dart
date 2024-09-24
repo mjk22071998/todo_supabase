@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:todo_supabase/models/todo_item.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_supabase/models/users.dart';
+import 'package:todo_supabase/session/session_manager.dart';
 
 class TodoModel with ChangeNotifier {
   final SupabaseClient _supabase = Supabase.instance.client;
@@ -26,11 +28,13 @@ class TodoModel with ChangeNotifier {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('kk:mm:ss EEE d MMM').format(now);
     try {
+      UserModel user = await SessionManager.getUser();
       await _supabase.from('notes').insert({
         'title': title,
         'content': description,
         'status': false,
-        "created_at": formattedDate
+        "created_at": formattedDate,
+        "uid": user.id,
       });
     } on PostgrestException catch (e) {
       log(e.toString());
