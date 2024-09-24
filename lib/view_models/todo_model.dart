@@ -18,7 +18,7 @@ class TodoModel with ChangeNotifier {
         .from('notes')
         .select('id, title, content, status, created_at')
         .eq('uid', userId);
-
+    
     _todos = response.map((item) => TodoItem.fromMap(item)).toList();
     return _todos;
   }

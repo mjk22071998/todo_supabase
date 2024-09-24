@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_supabase/layouts/add_todo.dart';
 import 'package:todo_supabase/models/todo_item.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_supabase/view_models/todo_model.dart';
@@ -16,11 +17,17 @@ class TodoListItem extends StatelessWidget {
       trailing: Checkbox(
         value: todo.status,
         onChanged: (value) {
-          context
-              .read<TodoModel>()
-              .updateTodo(todo.copyWith(isCompleted: value!));
+          context.read<TodoModel>().updateTodo(todo.copyWith(status: value!));
         },
       ),
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AddTodoScreen(
+                      todoItem: todo,
+                    )));
+      },
       onLongPress: () {
         // Delete todo item
         context.read<TodoModel>().deleteTodo(todo);
