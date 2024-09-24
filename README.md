@@ -1,16 +1,64 @@
-# todo_supabase
+# Todo App with Supabase Backend
 
-A new Flutter project.
+=====================================
+
+## Overview
+
+-----------
+
+This is a Todo app built with [Supabase](https://supabase.io/) as the backend. The app allows users to create, read, update, and delete todo items.
+
+## Features
+
+------------
+
+* Create new todo items
+* View all todo items
+* Update existing todo items
+* Delete todo items
+* Real-time data synchronization using Supabase
+
+## Technical Details
+
+--------------------
+
+* Frontend: [Insert frontend framework/library used, e.g., React, Angular, Vue.js]
+* Backend: Supabase
+* Database: Postgres
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+-------------------
 
-A few resources to get you started if this is your first Flutter project:
+### Prerequisites
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+* Node.js installed on your machine
+* Supabase account and project set up
+* [Insert any other dependencies or prerequisites]
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Installation
+
+1. Clone the repository: `git clone https://github.com/[Your GitHub Username]/todo-app-supabase.git`
+2. Install dependencies: `flutter pub get`
+3. Run the app `flutter run`
+
+## Usage
+
+---------
+
+* Creating a new todo item
+* Viewing all todo items
+* Updating an existing todo item
+* Deleting a todo item
+
+## Contributing
+
+---------------
+
+Contributions are welcome! If you'd like to contribute to this project, please fork the repository and submit a pull request.
+
+## Acknowledgments
+
+----------------
+
+* Supabase for providing the backend infrastructure
