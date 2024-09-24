@@ -20,7 +20,6 @@ class TodoModel with ChangeNotifier {
         .eq('uid', userId);
 
     _todos = response.map((item) => TodoItem.fromMap(item)).toList();
-    notifyListeners();
     return _todos;
   }
 
@@ -45,8 +44,8 @@ class TodoModel with ChangeNotifier {
     try {
       await _supabase.from('notes').update({
         'title': todo.title,
-        'content': todo.description,
-        'status': todo.isCompleted
+        'content': todo.content,
+        'status': todo.status
       }).eq('id', todo.id!);
     } on PostgrestException catch (e) {
       log(e.toString());

@@ -12,9 +12,9 @@ class TodoListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(todo.title),
-      subtitle: Text(todo.description),
+      subtitle: Text(todo.content),
       trailing: Checkbox(
-        value: todo.isCompleted,
+        value: todo.status,
         onChanged: (value) {
           context
               .read<TodoModel>()

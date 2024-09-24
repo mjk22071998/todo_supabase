@@ -22,7 +22,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     super.initState();
     if (widget.todoItem != null) {
       _titleController.text = widget.todoItem!.title;
-      _descriptionController.text = widget.todoItem!.description;
+      _descriptionController.text = widget.todoItem!.content;
     }
   }
 
@@ -70,17 +70,17 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         if (widget.todoItem != null) {
                           // Update existing todo item
                           widget.todoItem!.title = _titleController.text;
-                          widget.todoItem!.description =
+                          widget.todoItem!.content =
                               _descriptionController.text;
                           await provider.updateTodo(widget.todoItem!);
                         } else {
                           // Add new todo item
                           final todoItem = TodoItem(
                               title: _titleController.text,
-                              description: _descriptionController.text,
-                              isCompleted: false);
+                              content: _descriptionController.text,
+                              status: false);
                           await provider.createTodo(
-                              todoItem.title, todoItem.description);
+                              todoItem.title, todoItem.content);
                         }
                         Navigator.pop(context);
                       }

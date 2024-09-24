@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
             title: const Text('Todo App'),
           ),
           body: FutureBuilder(
-            future: context.read<TodoModel>().fetchTodos(userId),
+            future: provider.fetchTodos(userId),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());

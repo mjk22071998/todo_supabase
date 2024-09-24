@@ -16,9 +16,9 @@ class SessionManager {
   static Future<UserModel> getUser() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     UserModel user = UserModel(
-        id: sharedPreferences.getString(ID)!,
-        name: sharedPreferences.getString(NAME)!,
-        email: sharedPreferences.getString(EMAIL)!);
+        id: sharedPreferences.getString(ID)?? "",
+        name: sharedPreferences.getString(NAME)?? "",
+        email: sharedPreferences.getString(EMAIL)?? "");
     return user;
   }
 }
