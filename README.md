@@ -30,7 +30,7 @@ This is a Todo app built with [Supabase](https://supabase.io/) as the backend. T
 
 ### Installation
 
-1. Clone the repository: `git clonehttps://github.com/mjk22071998/todo_supabase`
+1. Clone the repository: `git clone https://github.com/mjk22071998/todo_supabase`
 2. Install dependencies: `flutter pub get`
 3. Run the app `flutter run`
 
