@@ -4,25 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:todo_supabase/models/users.dart';
 import 'package:todo_supabase/session/session_manager.dart';
+import 'package:todo_supabase/utils/constants.dart';
 
 class LoginModel with ChangeNotifier {
-  final SupabaseClient _supabase = Supabase.instance.client;
 
   Future<Set<Object>> login(String email, String password) async {
     notifyListeners();
     try {
-      AuthResponse response = await _supabase.auth.signInWithPassword(
+      AuthResponse response = await supabase.auth.signInWithPassword(
         password: password.trim(),
         email: email.trim(),
       );
       if (response.user != null) {
         try {
-          final dbResponse = await _supabase
+          final postgrestResponse = await supabase
               .from("users")
               .select("*")
               .eq("id", response.user!.id);
-          log(dbResponse.toString());
-          SessionManager.saveUser(UserModel.fromMap(dbResponse[0]));
+          log(postgrestResponse.toString());
+          SessionManager.saveUser(UserModel.fromMap(postgrestResponse[0]));
         } on PostgrestException catch (e) {
           log(e.toString());
           return {false,""}; // handle the error

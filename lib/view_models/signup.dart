@@ -4,20 +4,20 @@ import 'package:email_validator/email_validator.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:todo_supabase/models/users.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_supabase/utils/constants.dart';
 
 class SignUpViewModel extends ChangeNotifier {
-  final SupabaseClient _supabase = Supabase.instance.client;
   UserModel? _user;
 
   UserModel? get user => _user;
 
   Future<bool> signUpUser(String email, String password, String name) async {
     AuthResponse authResponse =
-        await _supabase.auth.signUp(password: password, email: email);
+        await supabase.auth.signUp(password: password, email: email);
     if (authResponse.user != null) {
       try {
         _user = UserModel(id: authResponse.user!.id, name: name, email: email);
-        final response = await _supabase.from("users").insert({
+        final response = await supabase.from("users").insert({
           "id": _user!.id,
           "email": _user!.email,
           "name": _user!.name
