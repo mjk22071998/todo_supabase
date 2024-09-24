@@ -1,7 +1,5 @@
 # Todo App with Supabase Backend
 
-=====================================
-
 ## Overview
 
 -----------
@@ -22,7 +20,7 @@ This is a Todo app built with [Supabase](https://supabase.io/) as the backend. T
 
 --------------------
 
-* Frontend: [Insert frontend framework/library used, e.g., React, Angular, Vue.js]
+* Frontend: Flutter
 * Backend: Supabase
 * Database: Postgres
 
@@ -30,15 +28,9 @@ This is a Todo app built with [Supabase](https://supabase.io/) as the backend. T
 
 -------------------
 
-### Prerequisites
-
-* Node.js installed on your machine
-* Supabase account and project set up
-* [Insert any other dependencies or prerequisites]
-
 ### Installation
 
-1. Clone the repository: `git clone https://github.com/[Your GitHub Username]/todo-app-supabase.git`
+1. Clone the repository: `git clonehttps://github.com/mjk22071998/todo_supabase`
 2. Install dependencies: `flutter pub get`
 3. Run the app `flutter run`
 
