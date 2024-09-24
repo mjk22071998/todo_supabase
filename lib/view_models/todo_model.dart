@@ -15,7 +15,7 @@ class TodoModel with ChangeNotifier {
     final response = await _supabase
         .from('notes')
         .select('id, title, content, status, created_at')
-        .eq('user_id', userId);
+        .eq('uid', userId);
 
     _todos = response.map((item) => TodoItem.fromMap(item)).toList();
     notifyListeners();
@@ -43,7 +43,7 @@ class TodoModel with ChangeNotifier {
         'title': todo.title,
         'content': todo.description,
         'status': todo.isCompleted
-      }).eq('id', todo.id);
+      }).eq('id', todo.id!);
     } on PostgrestException catch (e) {
       log(e.toString());
     }
@@ -51,7 +51,7 @@ class TodoModel with ChangeNotifier {
 
   Future<void> deleteTodo(TodoItem todo) async {
     try {
-      await _supabase.from('notes').delete().eq('id', todo.id);
+      await _supabase.from('notes').delete().eq('id', todo.id!);
     } on PostgrestException catch (e) {
       log(e.toString());
     }

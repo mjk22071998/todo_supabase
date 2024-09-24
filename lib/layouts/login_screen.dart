@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:todo_supabase/layouts/homescreen.dart';
 import 'package:todo_supabase/layouts/signup_screen.dart';
 import 'package:todo_supabase/view_models/login.dart';
 import 'package:todo_supabase/widgets/textfields.dart';
@@ -70,10 +71,18 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () async {
-                            bool loggedin = await provider.login(
+                            Set<Object> set = await provider.login(
                                 emailController.text, passwordController.text);
+                            bool loggedin = bool.parse(set.first.toString());
+                            String userId = set.last.toString();
                             if (loggedin) {
                               Fluttertoast.showToast(msg: "User Logged In");
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen(
+                                            userId: userId,
+                                          )));
                             } else {
                               Fluttertoast.showToast(
                                   msg: "User failed to Log in");

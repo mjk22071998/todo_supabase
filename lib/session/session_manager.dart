@@ -8,9 +8,9 @@ class SessionManager {
 
   static void saveUser(UserModel user) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString(NAME, user.name);
-    sharedPreferences.setString(EMAIL, user.email);
-    sharedPreferences.setString(ID, user.id);
+    await sharedPreferences.setString(NAME, user.name);
+    await sharedPreferences.setString(EMAIL, user.email);
+    await sharedPreferences.setString(ID, user.id);
   }
 
   static Future<UserModel> getUser() async {
