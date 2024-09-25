@@ -21,4 +21,13 @@ class SessionManager {
         email: sharedPreferences.getString(email)?? "");
     return user;
   }
+  
+  static Future<void> logoutUser() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    
+    await sharedPreferences.setString(name, "");
+    await sharedPreferences.setString(email, "");
+    await sharedPreferences.setString(id, "");
+    
+  }
 }
