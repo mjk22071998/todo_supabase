@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:todo_supabase/layouts/homescreen.dart';
-
-import 'package:todo_supabase/layouts/login_screen.dart';
 import 'package:todo_supabase/models/users.dart';
+import 'package:todo_supabase/screens/home_screen.dart';
+import 'package:todo_supabase/screens/login_screen.dart';
 import 'package:todo_supabase/session/session_manager.dart';
 
 const supabaseUrl = 'https://kvjtrrupyptymklnvkow.supabase.co';
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(colorSchemeSeed: Colors.blue),
-      home: user.id==""? const LoginPage(): HomeScreen(userId: user.id),
+      home: user.id==""? const LoginScreen(): HomeScreen(userId: user.id),
     );
   }
 }

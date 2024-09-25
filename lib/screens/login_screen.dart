@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:todo_supabase/layouts/homescreen.dart';
-import 'package:todo_supabase/layouts/signup_screen.dart';
+import 'package:todo_supabase/screens/home_screen.dart';
+import 'package:todo_supabase/screens/signup_screen.dart';
 import 'package:todo_supabase/view_models/login.dart';
 import 'package:todo_supabase/widgets/textfields.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginScreenState extends State<LoginScreen> {
   SupabaseClient supabase = Supabase.instance.client;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SignUpPage()),
+                                  builder: (context) => const SignUpScreen()),
                             );
                           },
                           child:

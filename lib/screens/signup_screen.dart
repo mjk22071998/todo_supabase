@@ -4,14 +4,14 @@ import 'package:todo_supabase/view_models/signup.dart';
 import 'package:todo_supabase/widgets/textfields.dart';
 import 'package:provider/provider.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpScreenState extends State<SignUpScreen> {
   SupabaseClient supabase = Supabase.instance.client;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
