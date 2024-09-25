@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:todo_supabase/providers/signup_provider.dart';
+import 'package:todo_supabase/utils/colors.dart';
 import 'package:todo_supabase/widgets/textfield.dart';
 import 'package:provider/provider.dart';
 
@@ -30,10 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  Color.fromARGB(255, 100, 181, 246),
-                  Color.fromARGB(255, 33, 150, 243)
-                ],
+                colors: [blueGradientTop, blueGradientBottom],
               ),
             ),
             child: Center(

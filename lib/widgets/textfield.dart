@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_supabase/utils/colors.dart';
 
 class TodoTextField extends StatelessWidget {
   final bool obscureText;
@@ -28,14 +29,14 @@ class TodoTextField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        fillColor: Colors.blueGrey.shade100,
+        fillColor: textfieldFillColor,
         filled: true,
         border: InputBorder.none,
         prefixIcon: Icon(icon),
         prefixIconColor: WidgetStateColor.resolveWith((states) =>
             states.contains(WidgetState.focused)
-                ? Colors.blue
-                : Colors.blueGrey.shade400),
+                ? seedColor
+                : inactiveColor),
       ),
     );
   }

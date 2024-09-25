@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:todo_supabase/screens/home_screen.dart';
 import 'package:todo_supabase/screens/signup_screen.dart';
 import 'package:todo_supabase/providers/login_provider.dart';
+import 'package:todo_supabase/utils/colors.dart';
 import 'package:todo_supabase/widgets/textfield.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -32,10 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  Color.fromARGB(255, 90, 180, 253),
-                  Color.fromARGB(255, 28, 153, 255)
-                ],
+                colors: [blueGradientTop, blueGradientBottom],
               ),
             ),
             child: Center(

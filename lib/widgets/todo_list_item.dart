@@ -14,12 +14,12 @@ class TodoListItem extends StatelessWidget {
     return ListTile(
       title: Text(todo.title),
       subtitle: Text(todo.content),
-      trailing: Checkbox(
+      trailing: Switch(
         value: todo.status,
         onChanged: (value) {
           context
               .read<TodoProvider>()
-              .updateTodo(todo.copyWith(status: value!));
+              .updateTodo(todo.copyWith(status: value));
         },
       ),
       onTap: () {
