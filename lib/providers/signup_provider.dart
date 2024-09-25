@@ -6,7 +6,7 @@ import 'package:todo_supabase/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_supabase/utils/constants.dart';
 
-class SignUpViewModel extends ChangeNotifier {
+class SignUpProvider extends ChangeNotifier {
   UserModel? _user;
 
   UserModel? get user => _user;

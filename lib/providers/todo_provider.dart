@@ -8,7 +8,7 @@ import 'package:todo_supabase/models/user_model.dart';
 import 'package:todo_supabase/session/session_manager.dart';
 import 'package:todo_supabase/utils/constants.dart';
 
-class TodoModel with ChangeNotifier {
+class TodoProvider with ChangeNotifier {
   List<TodoItem> _todos = [];
 
   List<TodoItem> get todos => _todos;
@@ -18,7 +18,7 @@ class TodoModel with ChangeNotifier {
         .from('notes')
         .select('id, title, content, status, created_at')
         .eq('uid', userId);
-    
+
     _todos = response.map((item) => TodoItem.fromMap(item)).toList();
     return _todos;
   }

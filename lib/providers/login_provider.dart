@@ -6,8 +6,7 @@ import 'package:todo_supabase/models/user_model.dart';
 import 'package:todo_supabase/session/session_manager.dart';
 import 'package:todo_supabase/utils/constants.dart';
 
-class LoginModel with ChangeNotifier {
-
+class LoginProvider with ChangeNotifier {
   Future<Set<Object>> login(String email, String password) async {
     notifyListeners();
     try {
@@ -25,18 +24,17 @@ class LoginModel with ChangeNotifier {
           SessionManager.saveUser(UserModel.fromMap(postgrestResponse[0]));
         } on PostgrestException catch (e) {
           log(e.toString());
-          return {false,""}; // handle the error
+          return {false, ""}; // handle the error
         }
         return {true, response.user!.id};
       } else {
-        return {false,""};
+        return {false, ""};
       }
     } catch (e) {
       log(e.toString());
-      return {false,""};
+      return {false, ""};
     } finally {
       notifyListeners();
     }
   }
 }
-

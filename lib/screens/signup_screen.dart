@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:todo_supabase/view_models/signup.dart';
-import 'package:todo_supabase/widgets/textfields.dart';
+import 'package:todo_supabase/providers/signup_provider.dart';
+import 'package:todo_supabase/widgets/textfield.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -17,15 +17,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController cpasswordController = TextEditingController();
-  
-  
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<SignUpViewModel>(
-      create: (_) => SignUpViewModel(),
-      child: Consumer<SignUpViewModel>(
-        builder:(context, provider, child)=> Scaffold(
+    return ChangeNotifierProvider<SignUpProvider>(
+      create: (_) => SignUpProvider(),
+      child: Consumer<SignUpProvider>(
+        builder: (context, provider, child) => Scaffold(
           body: Container(
             padding: const EdgeInsets.all(10.0),
             decoration: const BoxDecoration(
@@ -55,9 +53,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-        
+
                         // Name input field
-                        MyTextField(
+                        TodoTextField(
                           label: "Name",
                           obscureText: false,
                           inputType: TextInputType.name,
@@ -65,9 +63,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: nameController,
                         ),
                         const SizedBox(height: 10),
-        
+
                         // Email input field
-                        MyTextField(
+                        TodoTextField(
                           label: "Email",
                           obscureText: false,
                           inputType: TextInputType.emailAddress,
@@ -75,9 +73,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: emailController,
                         ),
                         const SizedBox(height: 10),
-        
+
                         // Password input field
-                        MyTextField(
+                        TodoTextField(
                           label: "Password",
                           obscureText: true,
                           inputType: TextInputType.text,
@@ -85,16 +83,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: passwordController,
                         ),
                         const SizedBox(height: 10),
-        
+
                         // Confirm password input field
-                        MyTextField(
+                        TodoTextField(
                           label: "Confirm Password",
                           obscureText: true,
                           inputType: TextInputType.text,
                           icon: Icons.password,
                           controller: cpasswordController,
                         ),
-        
+
                         // Sign Up button
                         const SizedBox(height: 20),
                         ElevatedButton(
@@ -110,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   passwordController.text.trim(),
                                   nameController.text.trim());
                               if (signedup) {
-                                if(context.mounted) {
+                                if (context.mounted) {
                                   Navigator.pop(context);
                                 }
                               }

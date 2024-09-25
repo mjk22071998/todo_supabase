@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:todo_supabase/models/todo_item_model.dart';
 import 'package:todo_supabase/screens/add_todo_screen.dart';
-import 'package:todo_supabase/view_models/todo_model.dart';
+import 'package:todo_supabase/providers/todo_provider.dart';
 import 'package:todo_supabase/widgets/todo_list_item.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,9 +16,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<TodoModel>(
-      create: (_) => TodoModel(),
-      child: Consumer<TodoModel>(
+    return ChangeNotifierProvider<TodoProvider>(
+      create: (_) => TodoProvider(),
+      child: Consumer<TodoProvider>(
         builder: (context, provider, child) => Scaffold(
           appBar: AppBar(
             title: const Text('Todo App'),
@@ -43,8 +43,10 @@ class HomeScreen extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const AddTodoScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AddTodoScreen()));
             },
             child: const Icon(Icons.add),
           ),

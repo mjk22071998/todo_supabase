@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:todo_supabase/screens/home_screen.dart';
 import 'package:todo_supabase/screens/signup_screen.dart';
-import 'package:todo_supabase/view_models/login.dart';
-import 'package:todo_supabase/widgets/textfields.dart';
+import 'package:todo_supabase/providers/login_provider.dart';
+import 'package:todo_supabase/widgets/textfield.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,9 +22,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<LoginModel>(
-      create: (_) => LoginModel(),
-      child: Consumer<LoginModel>(
+    return ChangeNotifierProvider<LoginProvider>(
+      create: (_) => LoginProvider(),
+      child: Consumer<LoginProvider>(
         builder: (context, provider, child) => Scaffold(
           body: Container(
             padding: const EdgeInsets.all(10.0),
@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Icon(Icons.person, size: 50, color: Colors.blue[500]),
                         const SizedBox(height: 10),
                         // Username input field
-                        MyTextField(
+                        TodoTextField(
                           label: "Email",
                           obscureText: false,
                           inputType: TextInputType.emailAddress,
@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 10),
                         // Password input field
-                        MyTextField(
+                        TodoTextField(
                           label: "Password",
                           obscureText: true,
                           inputType: TextInputType.text,

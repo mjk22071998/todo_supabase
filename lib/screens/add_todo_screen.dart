@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_supabase/models/todo_item_model.dart';
-import 'package:todo_supabase/view_models/todo_model.dart';
+import 'package:todo_supabase/providers/todo_provider.dart';
 
 class AddTodoScreen extends StatefulWidget {
   final TodoItem? todoItem;
@@ -28,9 +28,9 @@ class AddTodoScreenState extends State<AddTodoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<TodoModel>(
-      create: (_) => TodoModel(),
-      child: Consumer<TodoModel>(
+    return ChangeNotifierProvider<TodoProvider>(
+      create: (_) => TodoProvider(),
+      child: Consumer<TodoProvider>(
         builder: (context, provider, child) => Scaffold(
           appBar: AppBar(
             title: widget.todoItem != null

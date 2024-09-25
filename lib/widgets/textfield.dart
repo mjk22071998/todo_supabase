@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 
-class MyTextField extends StatelessWidget {
+class TodoTextField extends StatelessWidget {
   final bool obscureText;
   final TextInputType inputType;
   final IconData icon;
   final String label;
   final TextEditingController controller;
 
-  const MyTextField({
+  const TodoTextField({
     super.key,
     required this.label,
     required this.obscureText,
     required this.inputType,
-    required this.icon, required this.controller,
+    required this.icon,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       textAlign: TextAlign.start,
       obscureText: obscureText,
       textInputAction: TextInputAction.none,
