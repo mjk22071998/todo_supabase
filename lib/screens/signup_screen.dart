@@ -71,7 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           label: "Email",
                           obscureText: false,
                           inputType: TextInputType.emailAddress,
-                          icon: Icons.alternate_email,
+                          icon: Icons.email,
                           controller: emailController,
                         ),
                         const SizedBox(height: 10),
