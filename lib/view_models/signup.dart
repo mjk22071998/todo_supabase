@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:todo_supabase/models/users.dart';
+import 'package:todo_supabase/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_supabase/utils/constants.dart';
 

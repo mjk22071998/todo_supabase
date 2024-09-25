@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:todo_supabase/models/users.dart';
+import 'package:todo_supabase/models/user_model.dart';
 import 'package:todo_supabase/screens/home_screen.dart';
 import 'package:todo_supabase/screens/login_screen.dart';
 import 'package:todo_supabase/session/session_manager.dart';

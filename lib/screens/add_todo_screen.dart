@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_supabase/models/todo_item.dart';
+import 'package:todo_supabase/models/todo_item_model.dart';
 import 'package:todo_supabase/view_models/todo_model.dart';
 
 class AddTodoScreen extends StatefulWidget {

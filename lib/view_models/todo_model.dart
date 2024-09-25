@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:todo_supabase/models/todo_item.dart';
+import 'package:todo_supabase/models/todo_item_model.dart';
 import 'package:intl/intl.dart';
-import 'package:todo_supabase/models/users.dart';
+import 'package:todo_supabase/models/user_model.dart';
 import 'package:todo_supabase/session/session_manager.dart';
 import 'package:todo_supabase/utils/constants.dart';
 

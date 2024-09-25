@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_supabase/models/users.dart';
+import 'package:todo_supabase/models/user_model.dart';
 
 class SessionManager {
   static const String NAME = "name";
