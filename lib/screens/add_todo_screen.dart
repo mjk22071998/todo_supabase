@@ -6,17 +6,17 @@ import 'package:todo_supabase/view_models/todo_model.dart';
 class AddTodoScreen extends StatefulWidget {
   final TodoItem? todoItem;
 
-  AddTodoScreen({this.todoItem});
+  const AddTodoScreen({super.key, this.todoItem});
 
   @override
-  _AddTodoScreenState createState() => _AddTodoScreenState();
+  AddTodoScreenState createState() => AddTodoScreenState();
 }
 
-class _AddTodoScreenState extends State<AddTodoScreen> {
+class AddTodoScreenState extends State<AddTodoScreen> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-
+  final GlobalKey<AddTodoScreenState> addTodoKey = GlobalKey();
   @override
   void initState() {
     super.initState();
@@ -82,7 +82,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                           await provider.createTodo(
                               todoItem.title, todoItem.content);
                         }
-                        Navigator.pop(context);
+                        Navigator.pop(addTodoKey.currentContext!);
                       }
                     },
                     child: widget.todoItem != null

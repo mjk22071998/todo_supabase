@@ -110,7 +110,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   passwordController.text.trim(),
                                   nameController.text.trim());
                               if (signedup) {
-                                Navigator.pop(context);
+                                if(context.mounted) {
+                                  Navigator.pop(context);
+                                }
                               }
                             }
                           },

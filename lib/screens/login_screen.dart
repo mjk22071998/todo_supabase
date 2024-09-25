@@ -15,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  GlobalKey<_LoginScreenState> key = GlobalKey();
   SupabaseClient supabase = Supabase.instance.client;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -78,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (loggedin) {
                               Fluttertoast.showToast(msg: "User Logged In");
                               Navigator.pushReplacement(
-                                  context,
+                                  key.currentContext!,
                                   MaterialPageRoute(
                                       builder: (context) => HomeScreen(
                                             userId: userId,
