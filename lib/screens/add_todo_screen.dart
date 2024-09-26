@@ -60,55 +60,78 @@ class AddTodoScreenState extends State<AddTodoScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          TodoTextField(
-                            label: "Todo title",
-                            obscureText: false,
-                            inputType: TextInputType.text,
-                            icon: Icons.title,
-                            controller: _titleController,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Form(
+                        key: _formKey,
+                        child: SingleChildScrollView(
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  'Add Todo',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: TodoTextField(
+                                    label: "Todo title",
+                                    obscureText: false,
+                                    inputType: TextInputType.text,
+                                    icon: Icons.title,
+                                    controller: _titleController,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: TodoTextField(
+                                    controller: _descriptionController,
+                                    label: "Content of Todo",
+                                    icon: Icons.text_fields,
+                                    inputType: TextInputType.text,
+                                    obscureText: false,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    if (provider.validate(
+                                        _titleController.text.trim(),
+                                        _descriptionController.text.trim())) {
+                                      if (widget.todoItem != null) {
+                                        // Update existing todo item
+                                        widget.todoItem!.title =
+                                            _titleController.text.trim();
+                                        widget.todoItem!.content =
+                                            _descriptionController.text.trim();
+                                        await provider
+                                            .updateTodo(widget.todoItem!);
+                                      } else {
+                                        // Add new todo item
+                                        final todoItem = TodoItem(
+                                            title: _titleController.text.trim(),
+                                            content: _descriptionController.text
+                                                .trim(),
+                                            status: false);
+                                        await provider.createTodo(
+                                            todoItem.title, todoItem.content);
+                                      }
+                                      Navigator.pop(addTodoKey.currentContext!);
+                                    }
+                                  },
+                                  child: widget.todoItem != null
+                                      ? const Text('Update Todo')
+                                      : const Text('Add Todo'),
+                                ),
+                              ],
+                            ),
                           ),
-                          TodoTextField(
-                            controller: _descriptionController,
-                            label: "Content of Todo",
-                            icon: Icons.text_fields,
-                            inputType: TextInputType.text,
-                            obscureText: false,
-                          ),
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                            onPressed: () async {
-                              if (provider.validate(
-                                  _titleController.text.trim(),
-                                  _descriptionController.text.trim())) {
-                                if (widget.todoItem != null) {
-                                  // Update existing todo item
-                                  widget.todoItem!.title =
-                                      _titleController.text.trim();
-                                  widget.todoItem!.content =
-                                      _descriptionController.text.trim();
-                                  await provider.updateTodo(widget.todoItem!);
-                                } else {
-                                  // Add new todo item
-                                  final todoItem = TodoItem(
-                                      title: _titleController.text.trim(),
-                                      content:
-                                          _descriptionController.text.trim(),
-                                      status: false);
-                                  await provider.createTodo(
-                                      todoItem.title, todoItem.content);
-                                }
-                                Navigator.pop(addTodoKey.currentContext!);
-                              }
-                            },
-                            child: widget.todoItem != null
-                                ? const Text('Update Todo')
-                                : const Text('Add Todo'),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),

@@ -21,7 +21,7 @@ class TodoProvider with ChangeNotifier {
         .eq('uid', userId);
 
     _todos = response.map((item) => TodoItem.fromMap(item)).toList();
-    notifyListeners();
+    
     return _todos;
   }
 

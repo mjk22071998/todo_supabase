@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
+                  return const Center(child: Text('No Notes found for the user'));
                 } else {
                   List<TodoItem> todos = snapshot.data!;
                   return ListView.builder(

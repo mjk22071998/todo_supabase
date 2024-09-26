@@ -61,7 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              // Username input field
                               TodoTextField(
                                 label: "Email",
                                 obscureText: false,
@@ -70,7 +69,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 controller: emailController,
                               ),
                               const SizedBox(height: 10),
-                              // Password input field
                               TodoTextField(
                                 label: "Password",
                                 obscureText: true,
@@ -78,8 +76,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 icon: Icons.password,
                                 controller: passwordController,
                               ),
-
-                              // Login button
                               const SizedBox(height: 20),
                               ElevatedButton(
                                 onPressed: () async {
@@ -95,14 +91,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                     if (loggedin) {
                                       Fluttertoast.showToast(
                                           msg: "User Logged In");
-                                      Navigator.pushReplacement(
-                                        key.currentContext!,
-                                        MaterialPageRoute(
-                                          builder: (context) => HomeScreen(
-                                            userId: userId,
+                                      if (context.mounted) {
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => HomeScreen(
+                                              userId: userId,
+                                            ),
                                           ),
-                                        ),
-                                      );
+                                        );
+                                      }
                                     } else {
                                       Fluttertoast.showToast(
                                           msg: "User failed to Log in");
