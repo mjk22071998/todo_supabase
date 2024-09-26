@@ -5,6 +5,7 @@ import 'package:todo_supabase/models/todo_model.dart';
 import 'package:todo_supabase/screens/add_todo_screen.dart';
 import 'package:todo_supabase/providers/todo_provider.dart';
 import 'package:todo_supabase/screens/login_screen.dart';
+import 'package:todo_supabase/session/session_manager.dart';
 import 'package:todo_supabase/utils/colors.dart';
 import 'package:todo_supabase/utils/constants.dart';
 import 'package:todo_supabase/widgets/todo_list_item.dart';
@@ -29,6 +30,7 @@ class HomeScreen extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.logout),
                 onPressed: () async {
+                  await SessionManager.logoutUser();
                   await supabase.auth.signOut();
                   if (context.mounted) {
                     Navigator.pushReplacement(
@@ -59,14 +61,26 @@ class HomeScreen extends StatelessWidget {
                       child: Text('No Notes found for the user'));
                 } else {
                   List<TodoModel> todos = snapshot.data!;
-                  return ListView.builder(
-                    itemCount: todos.length,
-                    itemBuilder: (context, index) {
-                      return TodoListItem(
-                        todo: todos[index],index:index,
-                      );
-                    },
-                  );
+                  if (todos.isNotEmpty) {
+                    return ListView.builder(
+                      itemCount: todos.length,
+                      itemBuilder: (context, index) {
+                        return TodoListItem(
+                          todo: todos[index],
+                          index: index,
+                        );
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Text("No Todo Found"),
+                        ),
+                      ),
+                    );
+                  }
                 }
               },
             ),
