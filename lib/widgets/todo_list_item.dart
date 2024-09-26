@@ -11,29 +11,53 @@ class TodoListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(todo.title),
-      subtitle: Text(todo.content),
-      trailing: Switch(
-        value: todo.status,
-        onChanged: (value) {
-          context
-              .read<TodoProvider>()
-              .updateTodo(todo.copyWith(status: value));
-        },
-      ),
-      onTap: () {
-        Navigator.push(
+    return Card(
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => AddTodoScreen(
-                      todoItem: todo,
-                    )));
-      },
-      onLongPress: () {
-        // Delete todo item
-        context.read<TodoProvider>().deleteTodo(todo);
-      },
+              builder: (context) => AddTodoScreen(
+                todoItem: todo,
+              ),
+            ),
+          );
+        },
+        onLongPress: () {
+          // Delete todo item
+          context.read<TodoProvider>().deleteTodo(todo);
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                todo.title,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Text(todo.content),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Switch(
+                    value: todo.status,
+                    onChanged: (value) {
+                      context
+                          .read<TodoProvider>()
+                          .updateTodo(todo.copyWith(status: value));
+                    },
+                  ),
+                  Text(
+                    'Long press to delete',
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

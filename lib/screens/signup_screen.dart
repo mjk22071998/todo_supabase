@@ -26,111 +26,111 @@ class _SignUpScreenState extends State<SignUpScreen> {
       create: (_) => SignUpProvider(),
       child: Consumer<SignUpProvider>(
         builder: (context, provider, child) => Scaffold(
-          body: Container(
-            padding: const EdgeInsets.all(10.0),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [blueGradientTop, blueGradientBottom],
+          body: GestureDetector(
+            onTap: () {
+              FocusManager.instance.primaryFocus!.unfocus();
+            },
+            child: Container(
+              padding: const EdgeInsets.all(10.0),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [blueGradientTop, blueGradientBottom],
+                ),
               ),
-            ),
-            child: Center(
-              child: Card(
-                elevation: 10,
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Form(
-                    child: SingleChildScrollView(
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                        
-                            TodoTextField(
-                              label: "Name",
-                              obscureText: false,
-                              inputType: TextInputType.name,
-                              icon: Icons.person,
-                              controller: nameController,
-                            ),
-                            const SizedBox(height: 10),
-                        
-                            TodoTextField(
-                              label: "Email",
-                              obscureText: false,
-                              inputType: TextInputType.emailAddress,
-                              icon: Icons.email,
-                              controller: emailController,
-                            ),
-                            const SizedBox(height: 10),
-                        
-                            TodoTextField(
-                              label: "Password",
-                              obscureText: true,
-                              inputType: TextInputType.text,
-                              icon: Icons.password,
-                              controller: passwordController,
-                            ),
-                            const SizedBox(height: 10),
-                        
-                            TodoTextField(
-                              label: "Confirm Password",
-                              obscureText: true,
-                              inputType: TextInputType.text,
-                              icon: Icons.password,
-                              controller: cpasswordController,
-                            ),
-                        
-                            const SizedBox(height: 20),
-                            ElevatedButton(
-                              onPressed: () async {
-                                if (provider.validate(
-                                  emailController.text.trim(),
-                                  nameController.text.trim(),
-                                  passwordController.text.trim(),
-                                  cpasswordController.text.trim(),
-                                )) {
-                                  bool signedup = await provider.signUpUser(
-                                      emailController.text.trim(),
-                                      passwordController.text.trim(),
-                                      nameController.text.trim());
-                                  if (signedup) {
-                                    if (context.mounted) {
-                                      Navigator.pop(context);
-                                    }
-                                  }
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue[500],
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+              child: Center(
+                child: Card(
+                  elevation: 10,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Form(
+                      child: SingleChildScrollView(
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              const Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text('Sign Up'),
+                              const SizedBox(height: 20),
+                              TodoTextField(
+                                label: "Name",
+                                obscureText: false,
+                                inputType: TextInputType.name,
+                                icon: Icons.person,
+                                controller: nameController,
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ), 
-                            TextAndButton(
-                              text: "Already have an account?",
-                              btnText: "Login here",
-                              callback: goBack,
-                            )
-                          ],
+                              const SizedBox(height: 10),
+                              TodoTextField(
+                                label: "Email",
+                                obscureText: false,
+                                inputType: TextInputType.emailAddress,
+                                icon: Icons.email,
+                                controller: emailController,
+                              ),
+                              const SizedBox(height: 10),
+                              TodoTextField(
+                                label: "Password",
+                                obscureText: true,
+                                inputType: TextInputType.text,
+                                icon: Icons.password,
+                                controller: passwordController,
+                              ),
+                              const SizedBox(height: 10),
+                              TodoTextField(
+                                label: "Confirm Password",
+                                obscureText: true,
+                                inputType: TextInputType.text,
+                                icon: Icons.password,
+                                controller: cpasswordController,
+                              ),
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  if (provider.validate(
+                                    emailController.text.trim(),
+                                    nameController.text.trim(),
+                                    passwordController.text.trim(),
+                                    cpasswordController.text.trim(),
+                                  )) {
+                                    bool signedup = await provider.signUpUser(
+                                        emailController.text.trim(),
+                                        passwordController.text.trim(),
+                                        nameController.text.trim());
+                                    if (signedup) {
+                                      if (context.mounted) {
+                                        Navigator.pop(context);
+                                      }
+                                    }
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue[500],
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text('Sign Up'),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextAndButton(
+                                text: "Already have an account?",
+                                btnText: "Login here",
+                                callback: goBack,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
