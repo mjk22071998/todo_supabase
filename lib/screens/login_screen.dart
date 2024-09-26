@@ -101,8 +101,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         );
                                       }
                                     } else {
-                                      Fluttertoast.showToast(
-                                          msg: "User failed to Log in");
+                                      String msg = set.last.toString();
+                                      Fluttertoast.showToast(msg: msg);
                                     }
                                   }
                                 },
