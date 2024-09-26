@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:todo_supabase/models/todo_item_model.dart';
 import 'package:todo_supabase/screens/add_todo_screen.dart';
 import 'package:todo_supabase/providers/todo_provider.dart';
+import 'package:todo_supabase/screens/login_screen.dart';
 import 'package:todo_supabase/utils/colors.dart';
+import 'package:todo_supabase/utils/constants.dart';
 import 'package:todo_supabase/widgets/todo_list_item.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -23,6 +25,18 @@ class HomeScreen extends StatelessWidget {
         builder: (context, provider, child) => Scaffold(
           appBar: AppBar(
             title: const Text('Todo App'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.logout),
+                onPressed: () async {
+                  await supabase.auth.signOut();
+                  if(context.mounted) {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const  LoginScreen()));
+                  }
+
+                },
+              ),
+            ],
           ),
           body: Container(
             padding: const EdgeInsets.all(10),
@@ -39,7 +53,8 @@ class HomeScreen extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return const Center(child: Text('No Notes found for the user'));
+                  return const Center(
+                      child: Text('No Notes found for the user'));
                 } else {
                   List<TodoItem> todos = snapshot.data!;
                   return ListView.builder(

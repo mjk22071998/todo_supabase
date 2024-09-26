@@ -34,7 +34,7 @@ class TodoListItem extends StatelessWidget {
             children: [
               Text(
                 todo.title,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               Text(todo.content),
               Row(
@@ -48,7 +48,7 @@ class TodoListItem extends StatelessWidget {
                           .updateTodo(todo.copyWith(status: value));
                     },
                   ),
-                  Text(
+                  const Text(
                     'Long press to delete',
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
