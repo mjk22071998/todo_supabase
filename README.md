@@ -10,6 +10,8 @@ This is a Todo app built with [Supabase](https://supabase.io/) as the backend. T
 
 ------------
 
+* Login User
+* Sign up user
 * Create new todo items
 * View all todo items
 * Update existing todo items
