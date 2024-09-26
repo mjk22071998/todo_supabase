@@ -22,7 +22,6 @@ class LoginProvider with ChangeNotifier {
   }
 
   Future<Set<Object>> login(String email, String password) async {
-    notifyListeners();
     try {
       AuthResponse response = await supabase.auth.signInWithPassword(
         password: password.trim(),
@@ -38,15 +37,15 @@ class LoginProvider with ChangeNotifier {
           SessionManager.saveUser(UserModel.fromMap(postgrestResponse[0]));
         } on PostgrestException catch (e) {
           log(e.toString());
-          return {false, ""}; // handle the error
+          return {false, "No user data found in Database"};
         }
         return {true, response.user!.id};
       } else {
-        return {false, ""};
+        return {false, "No user data found in Database"};
       }
     } catch (e) {
       log(e.toString());
-      return {false, ""};
+      return {false, "No Internet Connection"};
     } finally {
       notifyListeners();
     }

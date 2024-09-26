@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:email_validator/email_validator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:todo_supabase/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -23,14 +24,17 @@ class SignUpProvider extends ChangeNotifier {
           "name": _user!.name
         }).select();
         log(response.toString());
-        log(_user!.toJson());
       } catch (e) {
+        notifyListeners();
         log(e.toString());
+        Fluttertoast.showToast(msg: "Failed to upload user data to database");
         return false;
       }
       notifyListeners();
       return true;
     } else {
+      Fluttertoast.showToast(msg: "Failed to sign up user");
+      notifyListeners();
       return false;
     }
   }

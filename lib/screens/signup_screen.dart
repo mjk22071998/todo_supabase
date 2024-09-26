@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:todo_supabase/providers/signup_provider.dart';
 import 'package:todo_supabase/utils/colors.dart';
+import 'package:todo_supabase/widgets/text_and_button.dart';
 import 'package:todo_supabase/widgets/textfield.dart';
 import 'package:provider/provider.dart';
 
@@ -43,7 +44,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        // Heading
                         const Text(
                           'Sign Up',
                           style: TextStyle(
@@ -52,7 +52,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
 
-                        // Name input field
                         TodoTextField(
                           label: "Name",
                           obscureText: false,
@@ -62,7 +61,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         const SizedBox(height: 10),
 
-                        // Email input field
                         TodoTextField(
                           label: "Email",
                           obscureText: false,
@@ -72,7 +70,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         const SizedBox(height: 10),
 
-                        // Password input field
                         TodoTextField(
                           label: "Password",
                           obscureText: true,
@@ -82,7 +79,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         const SizedBox(height: 10),
 
-                        // Confirm password input field
                         TodoTextField(
                           label: "Confirm Password",
                           obscureText: true,
@@ -91,7 +87,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: cpasswordController,
                         ),
 
-                        // Sign Up button
                         const SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () async {
@@ -126,15 +121,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         const SizedBox(
                           height: 10,
-                        ),
-                        // Already have an account? Log In link
-                        TextButton(
-                          onPressed: () {
-                            // Log In link logic goes here
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Already have an account? Log In'),
-                        ),
+                        ), 
+                        TextAndButton(
+                          text: "Already have an account?",
+                          btnText: "Login here",
+                          callback: goBack,
+                        )
                       ],
                     ),
                   ),
@@ -146,54 +138,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-}
 
-/*
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:todo_supabase/viewmodels/sign_up_view_model.dart';
-
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
-
-  @override
-  State<SignUpPage> createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _cpasswordController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => SignUpViewModel(),
-      child: Scaffold(
-        // ... rest of the UI code remains the same ...
-        ElevatedButton(
-          onPressed: () async {
-            if (Provider.of<SignUpViewModel>(context, listen: false)
-                .validate(
-                    _emailController.text.trim(),
-                    _nameController.text.trim(),
-                    _passwordController.text.trim(),
-                    _cpasswordController.text.trim())) {
-              bool signedup = await Provider.of<SignUpViewModel>(context, listen: false)
-                  .signUpUser(
-                      _emailController.text.trim(),
-                      _passwordController.text.trim(),
-                      _nameController.text.trim());
-              if (signedup) {
-                Navigator.pop(context);
-              }
-            }
-          },
-          // ... rest of the button code remains the same ...
-        ),
-      ),
-    );
+  void goBack() {
+    Navigator.pop(context);
   }
 }
-*/

@@ -21,6 +21,7 @@ class TodoProvider with ChangeNotifier {
         .eq('uid', userId);
 
     _todos = response.map((item) => TodoItem.fromMap(item)).toList();
+    notifyListeners();
     return _todos;
   }
 
@@ -37,15 +38,17 @@ class TodoProvider with ChangeNotifier {
         "uid": user.id,
       });
     } on PostgrestException catch (e) {
+      Fluttertoast.showToast(msg: "No Todo exist in the database for user");
       log(e.toString());
     }
+    notifyListeners();
   }
 
   bool validate(String title, String description) {
     if (title.isEmpty) {
       Fluttertoast.showToast(msg: "Enter title");
       return false;
-    } else if (description.isEmpty){
+    } else if (description.isEmpty) {
       Fluttertoast.showToast(msg: "Enter description");
       return false;
     } else {
@@ -61,15 +64,19 @@ class TodoProvider with ChangeNotifier {
         'status': todo.status
       }).eq('id', todo.id!);
     } on PostgrestException catch (e) {
+      Fluttertoast.showToast(msg: "Failed to update todo");
       log(e.toString());
     }
+    notifyListeners();
   }
 
   Future<void> deleteTodo(TodoItem todo) async {
     try {
       await supabase.from('notes').delete().eq('id', todo.id!);
     } on PostgrestException catch (e) {
+      Fluttertoast.showToast(msg: "Failed to delete todo");
       log(e.toString());
     }
+    notifyListeners();
   }
 }

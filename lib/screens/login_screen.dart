@@ -6,6 +6,7 @@ import 'package:todo_supabase/screens/home_screen.dart';
 import 'package:todo_supabase/screens/signup_screen.dart';
 import 'package:todo_supabase/providers/login_provider.dart';
 import 'package:todo_supabase/utils/colors.dart';
+import 'package:todo_supabase/widgets/text_and_button.dart';
 import 'package:todo_supabase/widgets/textfield.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -43,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.all(20.0),
                   child: Form(
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         // Person avatar
                         Icon(Icons.person, size: 50, color: Colors.blue[500]),
@@ -111,18 +112,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        TextButton(
-                          onPressed: () {
-                            // Forgot password logic goes here
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SignUpScreen()),
-                            );
-                          },
-                          child:
-                              const Text('Already have account? Sign up here'),
-                        ),
+                        TextAndButton(
+                            text: "Don't have an account?",
+                            btnText: "Signup here",
+                            callback: toSignUpScreen)
                       ],
                     ),
                   ),
@@ -170,6 +163,13 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  void toSignUpScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SignUpScreen()),
     );
   }
 }
