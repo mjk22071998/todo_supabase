@@ -43,80 +43,93 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Form(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        // Person avatar
-                        Icon(Icons.person, size: 50, color: Colors.blue[500]),
-                        const SizedBox(height: 10),
-                        // Username input field
-                        TodoTextField(
-                          label: "Email",
-                          obscureText: false,
-                          inputType: TextInputType.emailAddress,
-                          icon: Icons.email,
-                          controller: emailController,
-                        ),
-                        const SizedBox(height: 10),
-                        // Password input field
-                        TodoTextField(
-                          label: "Password",
-                          obscureText: true,
-                          inputType: TextInputType.text,
-                          icon: Icons.password,
-                          controller: passwordController,
-                        ),
-
-                        // Login button
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () async {
-                            if (provider.validate(emailController.text.trim(),
-                                passwordController.text.trim())) {
-                              Set<Object> set = await provider.login(
-                                  emailController.text.trim(),
-                                  passwordController.text.trim());
-                              bool loggedin = bool.parse(set.first.toString());
-                              String userId = set.last.toString();
-                              if (loggedin) {
-                                Fluttertoast.showToast(msg: "User Logged In");
-                                Navigator.pushReplacement(
-                                  key.currentContext!,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomeScreen(
-                                      userId: userId,
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                Fluttertoast.showToast(
-                                    msg: "User failed to Log in");
-                              }
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue[500],
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                    child: SingleChildScrollView(
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            const Text(
+                              'Login',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          child: const Text('LOGIN'),
+                            const SizedBox(height: 20),
+                            // Username input field
+                            TodoTextField(
+                              label: "Email",
+                              obscureText: false,
+                              inputType: TextInputType.emailAddress,
+                              icon: Icons.email,
+                              controller: emailController,
+                            ),
+                            const SizedBox(height: 10),
+                            // Password input field
+                            TodoTextField(
+                              label: "Password",
+                              obscureText: true,
+                              inputType: TextInputType.text,
+                              icon: Icons.password,
+                              controller: passwordController,
+                            ),
+
+                            // Login button
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () async {
+                                if (provider.validate(
+                                    emailController.text.trim(),
+                                    passwordController.text.trim())) {
+                                  Set<Object> set = await provider.login(
+                                      emailController.text.trim(),
+                                      passwordController.text.trim());
+                                  bool loggedin =
+                                      bool.parse(set.first.toString());
+                                  String userId = set.last.toString();
+                                  if (loggedin) {
+                                    Fluttertoast.showToast(
+                                        msg: "User Logged In");
+                                    Navigator.pushReplacement(
+                                      key.currentContext!,
+                                      MaterialPageRoute(
+                                        builder: (context) => HomeScreen(
+                                          userId: userId,
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: "User failed to Log in");
+                                  }
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue[500],
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: const Text('LOGIN'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                _showDialog(context);
+                              },
+                              child: const Text('Forgot Password?'),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            TextAndButton(
+                                text: "Don't have an account?",
+                                btnText: "Signup here",
+                                callback: toSignUpScreen)
+                          ],
                         ),
-                        TextButton(
-                          onPressed: () {
-                            _showDialog(context);
-                          },
-                          child: const Text('Forgot Password?'),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextAndButton(
-                            text: "Don't have an account?",
-                            btnText: "Signup here",
-                            callback: toSignUpScreen)
-                      ],
+                      ),
                     ),
                   ),
                 ),
