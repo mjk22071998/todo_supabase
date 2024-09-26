@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:todo_supabase/models/todo_item_model.dart';
+import 'package:todo_supabase/models/todo_model.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_supabase/screens/add_todo_screen.dart';
 import 'package:todo_supabase/providers/todo_provider.dart';
 
 class TodoListItem extends StatelessWidget {
-  final TodoItem todo;
+  final TodoModel todo;
+  final int index;
 
-  const TodoListItem({super.key, required this.todo});
+  const TodoListItem({super.key, required this.todo, required this.index});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
         onTap: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => AddTodoScreen(
-                todoItem: todo,
-              ),
+              builder: (context) => AddTodoScreen(todoItem: todo, index: index),
             ),
           );
         },
         onLongPress: () {
-          context.read<TodoProvider>().deleteTodo(todo);
+          context.read<TodoProvider>().deleteTodo(todo, index);
         },
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -33,7 +32,8 @@ class TodoListItem extends StatelessWidget {
             children: [
               Text(
                 todo.title,
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               Text(todo.content),
               Row(
@@ -44,7 +44,7 @@ class TodoListItem extends StatelessWidget {
                     onChanged: (value) {
                       context
                           .read<TodoProvider>()
-                          .updateTodo(todo.copyWith(status: value));
+                          .updateTodo(todo.copyWith(status: value), index);
                     },
                   ),
                   const Text(

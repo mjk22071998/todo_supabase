@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_supabase/models/todo_item_model.dart';
+
+import 'package:todo_supabase/models/todo_model.dart';
 import 'package:todo_supabase/providers/todo_provider.dart';
+import 'package:todo_supabase/screens/home_screen.dart';
+import 'package:todo_supabase/session/session_manager.dart';
 import 'package:todo_supabase/utils/colors.dart';
 import 'package:todo_supabase/widgets/textfield.dart';
 
 class AddTodoScreen extends StatefulWidget {
-  final TodoItem? todoItem;
+  final TodoModel? todoItem;
+  final int? index;
 
-  const AddTodoScreen({super.key, this.todoItem});
+  const AddTodoScreen({
+    super.key,
+    this.todoItem,
+    this.index,
+  });
 
   @override
   AddTodoScreenState createState() => AddTodoScreenState();
@@ -108,11 +116,11 @@ class AddTodoScreenState extends State<AddTodoScreen> {
                                             _titleController.text.trim();
                                         widget.todoItem!.content =
                                             _descriptionController.text.trim();
-                                        await provider
-                                            .updateTodo(widget.todoItem!);
+                                        await provider.updateTodo(
+                                            widget.todoItem!, widget.index!);
                                       } else {
                                         // Add new todo item
-                                        final todoItem = TodoItem(
+                                        final todoItem = TodoModel(
                                             title: _titleController.text.trim(),
                                             content: _descriptionController.text
                                                 .trim(),
@@ -120,7 +128,16 @@ class AddTodoScreenState extends State<AddTodoScreen> {
                                         await provider.createTodo(
                                             todoItem.title, todoItem.content);
                                       }
-                                      if (context.mounted) Navigator.pop(context);
+                                      final user =
+                                          await SessionManager.getUser();
+                                      if (context.mounted) {
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HomeScreen(
+                                                        userId: user.id)));
+                                      }
                                     }
                                   },
                                   child: widget.todoItem != null

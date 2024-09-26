@@ -1,11 +1,11 @@
-class TodoItem {
+class TodoModel {
   int? id;
   String title;
   String content;
   bool status;
   String? created_at;
 
-  TodoItem({
+  TodoModel({
     this.id,
     required this.title,
     required this.content,
@@ -13,8 +13,8 @@ class TodoItem {
     this.created_at,
   });
 
-  factory TodoItem.fromMap(Map<String, dynamic> map) {
-    return TodoItem(
+  factory TodoModel.fromMap(Map<String, dynamic> map) {
+    return TodoModel(
       id: map['id']?.toInt(),
       title: map['title'] ?? '',
       content: map['content'] ?? '',
@@ -23,14 +23,14 @@ class TodoItem {
     );
   }
 
-  TodoItem copyWith({
+  TodoModel copyWith({
     int? id,
     String? title,
     String? content,
     bool? status,
     String? created_at,
   }) {
-    return TodoItem(
+    return TodoModel(
       id: id ?? this.id,
       title: title ?? this.title,
       content: content ?? this.content,
@@ -41,15 +41,15 @@ class TodoItem {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
-    if(id != null){
+
+    if (id != null) {
       result.addAll({'id': id});
     }
     result.addAll({'title': title});
     result.addAll({'content': content});
     result.addAll({'status': status});
     result.addAll({'created_at': created_at});
-  
+
     return result;
   }
 }

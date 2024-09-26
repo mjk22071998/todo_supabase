@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:todo_supabase/models/todo_item_model.dart';
+import 'package:todo_supabase/models/todo_model.dart';
 import 'package:todo_supabase/screens/add_todo_screen.dart';
 import 'package:todo_supabase/providers/todo_provider.dart';
 import 'package:todo_supabase/screens/login_screen.dart';
@@ -30,10 +30,12 @@ class HomeScreen extends StatelessWidget {
                 icon: const Icon(Icons.logout),
                 onPressed: () async {
                   await supabase.auth.signOut();
-                  if(context.mounted) {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const  LoginScreen()));
+                  if (context.mounted) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
                   }
-
                 },
               ),
             ],
@@ -56,11 +58,13 @@ class HomeScreen extends StatelessWidget {
                   return const Center(
                       child: Text('No Notes found for the user'));
                 } else {
-                  List<TodoItem> todos = snapshot.data!;
+                  List<TodoModel> todos = snapshot.data!;
                   return ListView.builder(
                     itemCount: todos.length,
                     itemBuilder: (context, index) {
-                      return TodoListItem(todo: todos[index]);
+                      return TodoListItem(
+                        todo: todos[index],index:index,
+                      );
                     },
                   );
                 }
