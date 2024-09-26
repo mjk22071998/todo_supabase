@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class TodoItem {
   int? id;
   String title;
@@ -53,36 +51,5 @@ class TodoItem {
     result.addAll({'created_at': created_at});
   
     return result;
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory TodoItem.fromJson(String source) =>
-      TodoItem.fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return 'TodoItem(id: $id, title: $title, content: $content, status: $status, created_at: $created_at)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-  
-    return other is TodoItem &&
-      other.id == id &&
-      other.title == title &&
-      other.content == content &&
-      other.status == status &&
-      other.created_at == created_at;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-      title.hashCode ^
-      content.hashCode ^
-      status.hashCode ^
-      created_at.hashCode;
   }
 }

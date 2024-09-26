@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class UserModel {
   String id;
   String name;
@@ -39,25 +37,4 @@ class UserModel {
       name: map['name'] ?? '',
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory UserModel.fromJson(String source) =>
-      UserModel.fromMap(json.decode(source));
-
-  @override
-  String toString() => 'Users(id: $id, name: $name, email: $email)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is UserModel &&
-        other.id == id &&
-        other.name == name &&
-        other.email == email;
-  }
-
-  @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ email.hashCode;
 }
