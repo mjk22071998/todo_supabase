@@ -24,7 +24,6 @@ class TodoListItem extends StatelessWidget {
           );
         },
         onLongPress: () {
-          // Delete todo item
           context.read<TodoProvider>().deleteTodo(todo);
         },
         child: Padding(

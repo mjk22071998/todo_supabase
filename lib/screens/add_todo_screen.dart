@@ -18,7 +18,6 @@ class AddTodoScreenState extends State<AddTodoScreen> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-  final GlobalKey<AddTodoScreenState> addTodoKey = GlobalKey();
   @override
   void initState() {
     super.initState();
@@ -121,7 +120,7 @@ class AddTodoScreenState extends State<AddTodoScreen> {
                                         await provider.createTodo(
                                             todoItem.title, todoItem.content);
                                       }
-                                      Navigator.pop(addTodoKey.currentContext!);
+                                      if (context.mounted) Navigator.pop(context);
                                     }
                                   },
                                   child: widget.todoItem != null

@@ -17,7 +17,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  GlobalKey<_LoginScreenState> key = GlobalKey();
   SupabaseClient supabase = Supabase.instance.client;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
