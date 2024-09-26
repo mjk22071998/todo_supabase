@@ -73,7 +73,7 @@ class TodoProvider with ChangeNotifier {
       log(e.toString());
     }
     final user = await SessionManager.getUser();
-    fetchTodos(user.id);
+    await fetchTodos(user.id);
     notifyListeners();
   }
 
