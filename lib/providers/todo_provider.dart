@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:todo_supabase/models/todo_item_model.dart';
 import 'package:intl/intl.dart';
@@ -37,6 +38,18 @@ class TodoProvider with ChangeNotifier {
       });
     } on PostgrestException catch (e) {
       log(e.toString());
+    }
+  }
+
+  bool validate(String title, String description) {
+    if (title.isEmpty) {
+      Fluttertoast.showToast(msg: "Enter title");
+      return false;
+    } else if (description.isEmpty){
+      Fluttertoast.showToast(msg: "Enter description");
+      return false;
+    } else {
+      return true;
     }
   }
 

@@ -70,21 +70,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () async {
-                            Set<Object> set = await provider.login(
-                                emailController.text, passwordController.text);
-                            bool loggedin = bool.parse(set.first.toString());
-                            String userId = set.last.toString();
-                            if (loggedin) {
-                              Fluttertoast.showToast(msg: "User Logged In");
-                              Navigator.pushReplacement(
+                            if (provider.validate(emailController.text.trim(),
+                                passwordController.text.trim())) {
+                              Set<Object> set = await provider.login(
+                                  emailController.text.trim(),
+                                  passwordController.text.trim());
+                              bool loggedin = bool.parse(set.first.toString());
+                              String userId = set.last.toString();
+                              if (loggedin) {
+                                Fluttertoast.showToast(msg: "User Logged In");
+                                Navigator.pushReplacement(
                                   key.currentContext!,
                                   MaterialPageRoute(
-                                      builder: (context) => HomeScreen(
-                                            userId: userId,
-                                          )));
-                            } else {
-                              Fluttertoast.showToast(
-                                  msg: "User failed to Log in");
+                                    builder: (context) => HomeScreen(
+                                      userId: userId,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: "User failed to Log in");
+                              }
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -96,11 +102,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: const Text('LOGIN'),
                         ),
-
-                        // Forgot password link
                         TextButton(
                           onPressed: () {
-                            // Forgot password logic goes here
+                            _showDialog(context);
                           },
                           child: const Text('Forgot Password?'),
                         ),
@@ -127,6 +131,44 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    final forgotPasswordController = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: const Text('Forgot Password'),
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TodoTextField(
+              label: "Email",
+              obscureText: false,
+              inputType: TextInputType.emailAddress,
+              icon: Icons.email,
+              controller: forgotPasswordController,
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              if (forgotPasswordController.text.isNotEmpty) {
+                await supabase.auth.resetPasswordForEmail(
+                    forgotPasswordController.text.trim());
+                Fluttertoast.showToast(msg: "Password reset email sent");
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
+              }
+            },
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text("Submit"),
+            ),
+          ),
+        ],
       ),
     );
   }
